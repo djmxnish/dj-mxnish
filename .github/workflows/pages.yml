@@ -23,12 +23,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Force real photo asset
-        run: |
-          sed -i 's#assets/dj-mxnish-logo.jpg?v=4#assets/dj-mxnish-real.svg#g' index.html
-          sed -i 's#assets/dj-mxnish-gallery-data.txt?v=4#assets/dj-mxnish-real.svg#g' index.html
-          sed -i 's#assets/dj-mxnish-logo-new.jpg#assets/dj-mxnish-real.svg#g' index.html
-          sed -i 's#assets/dj-mxnish-showcase-new.jpg#assets/dj-mxnish-real.svg#g' index.html
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
