@@ -1,0 +1,1 @@
+Photo cleanup requested: remove all website photos so visitors do not see broken image placeholders. Use the next site deployment to apply the cleanup.
