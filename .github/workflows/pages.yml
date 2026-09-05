@@ -21,10 +21,34 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Fix DJ photo URLs
+      - name: Restore photo assets
         run: |
-          sed -i 's#assets/dj-mxnish-real.svg?v=4#assets/dj-mxnish-gallery.webp?v=6#g' index.html
-          sed -i 's#assets/dj-mxnish-real.svg?v=2#assets/dj-mxnish-gallery.webp?v=6#g' index.html
+          set -e
+          base64 -d assets/dj-mxnish-about.webp.b64 > assets/dj-mxnish-about.webp
+          base64 -d assets/dj-mxnish-live.b64 > assets/dj-mxnish-live.webp
+          file assets/dj-mxnish-about.webp assets/dj-mxnish-live.webp
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          html = p.read_text(encoding='utf-8')
+          script = '''<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const photos = document.querySelectorAll('.media-card img');
+  const sources = ['assets/dj-mxnish-about.webp','assets/dj-mxnish-live.webp'];
+  photos.forEach(function(img, i){
+    if (sources[i]) img.src = sources[i];
+    img.addEventListener('error', function(){
+      const card = img.closest('.media-card');
+      if (card) card.classList.add('media-failed');
+      img.style.display = 'none';
+    }, {once:true});
+  });
+});
+</script>'''
+          if 'dj-mxnish-about.webp' not in html.split('</body>')[0]:
+              html = html.replace('</body>', script + '\\n</body>')
+          p.write_text(html, encoding='utf-8')
+          PY
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
