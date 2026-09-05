@@ -27,28 +27,8 @@ jobs:
           base64 -d assets/dj-mxnish-about.webp.b64 > assets/dj-mxnish-about.webp
           base64 -d assets/dj-mxnish-live.b64 > assets/dj-mxnish-live.webp
           file assets/dj-mxnish-about.webp assets/dj-mxnish-live.webp
-          python - <<'PY'
-          from pathlib import Path
-          p = Path('index.html')
-          html = p.read_text(encoding='utf-8')
-          script = '''<script>
-document.addEventListener('DOMContentLoaded', function(){
-  const photos = document.querySelectorAll('.media-card img');
-  const sources = ['assets/dj-mxnish-about.webp','assets/dj-mxnish-live.webp'];
-  photos.forEach(function(img, i){
-    if (sources[i]) img.src = sources[i];
-    img.addEventListener('error', function(){
-      const card = img.closest('.media-card');
-      if (card) card.classList.add('media-failed');
-      img.style.display = 'none';
-    }, {once:true});
-  });
-});
-</script>'''
-          if 'dj-mxnish-about.webp' not in html.split('</body>')[0]:
-              html = html.replace('</body>', script + '\\n</body>')
-          p.write_text(html, encoding='utf-8')
-          PY
+      - name: Attach reliable photo loader
+        run: sed -i 's#</body>#<script src="fix-images.js?v=2"></script></body>#' index.html
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
