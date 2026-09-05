@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', function () {
   const photos = document.querySelectorAll('.media-card img');
   const sources = [
-    'assets/dj-mxnish-about.webp',
-    'assets/dj-mxnish-live.webp'
+    'assets/dj-mxnish-gallery.webp',
+    'assets/dj-mxnish-showcase-new.jpg'
   ];
 
   photos.forEach(function (img, index) {
     if (!sources[index]) return;
-    img.src = sources[index] + '?v=1';
+    img.src = sources[index] + '?v=4';
     img.addEventListener('error', function () {
       img.style.display = 'none';
       const card = img.closest('.media-card');
