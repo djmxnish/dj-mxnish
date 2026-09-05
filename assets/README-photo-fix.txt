@@ -1,0 +1,1 @@
+Photo assets are being repaired from the original uploaded JPEGs.
