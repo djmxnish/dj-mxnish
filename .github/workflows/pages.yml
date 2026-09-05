@@ -21,14 +21,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Restore photo assets
-        run: |
-          set -e
-          base64 -d assets/dj-mxnish-about.webp.b64 > assets/dj-mxnish-about.webp
-          base64 -d assets/dj-mxnish-live.b64 > assets/dj-mxnish-live.webp
-          file assets/dj-mxnish-about.webp assets/dj-mxnish-live.webp
       - name: Attach reliable photo loader
-        run: sed -i 's#</body>#<script src="fix-images.js?v=2"></script></body>#' index.html
+        run: sed -i 's#</body>#<script src="fix-images.js?v=5"></script></body>#' index.html
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
