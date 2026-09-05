@@ -1,0 +1,2 @@
+/* Hide photo/media placeholders while keeping all surrounding sections intact. */
+img,picture,video{visibility:hidden!important;}
