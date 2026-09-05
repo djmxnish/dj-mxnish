@@ -1,0 +1,1 @@
+All website photos are to be removed from the visitor-facing site because broken image placeholders were appearing.
