@@ -1,0 +1,4 @@
+/* Emergency photo cleanup: hide all site photos without affecting layout. */
+img, picture, video, .media, .media-card, .photo, .gallery, .gallery-grid, .image-card, .hero-media, .about-media, .live-media {
+  display: none !important;
+}
