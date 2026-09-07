@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
 Sitemap: https://djmxnish.github.io/dj-mxnish/sitemap.xml
